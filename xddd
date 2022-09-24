@@ -8,13 +8,11 @@ local Workspace = game:GetService("Workspace")
 local GuiService = game:GetService("GuiService")
 local RunService = game:GetService("RunService")
 
--- // Vars
 local Heartbeat = RunService.Heartbeat
 local LocalPlayer = Players.LocalPlayer
 local CurrentCamera = Workspace.CurrentCamera
 local Mouse = LocalPlayer:GetMouse()
 
--- // Optimisation Vars (ugly)
 local Drawingnew = Drawing.new
 local Color3fromRGB = Color3.fromRGB
 local Vector2new = Vector2.new
@@ -35,13 +33,12 @@ local FindFirstChild = Instancenew("Part").FindFirstChild
 local tableremove = table.remove
 local tableinsert = table.insert
 
--- // Silent Aim Vars
 getgenv().Aiming = {
     Enabled = true,
     ShowFOV = true,
     FOV = 16,
     FOVSides = 25,
-    FOVColour = Color3fromRGB(255, 255, 255),
+    FOVColour = Color3fromRGB(255, 255, 0),
     VisibleCheck = true,
     HitChance = 100,
     Selected = nil,
