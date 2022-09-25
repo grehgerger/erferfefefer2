@@ -1,4 +1,6 @@
-if getgenv().Aiming then return getgenv().Aiming end
+if getgenv().Aiming then
+    return getgenv().Aiming
+end
 
 -- // Services
 local Players = game:GetService("Players")
@@ -36,27 +38,37 @@ local tableinsert = table.insert
 -- // Silent Aim Vars
 getgenv().Aiming = {
     Enabled = true,
-
-    ShowFOV = true,
+    ShowFOV = false,
     FOV = 12.5,
     FOVSides = 25,
     FOVColour = Color3fromRGB(255, 255, 0),
-
     VisibleCheck = true,
-    
     HitChance = 100,
-
     Selected = nil,
     SelectedPart = nil,
-
-    TargetPart = {"Head", "LeftHand", "RightHand", "LeftLowerArm", "RightLowerArm", "LeftUpperArm", "RightUpperArm", "LeftFoot", "LeftLowerLeg", "UpperTorso", "LeftUpperLeg", "RightLowerLeg", "RightFoot", "LowerTorso", "RightUpperLeg"},
-
+    TargetPart = {
+        "Head",
+        "LeftHand",
+        "RightHand",
+        "LeftLowerArm",
+        "RightLowerArm",
+        "LeftUpperArm",
+        "RightUpperArm",
+        "LeftFoot",
+        "LeftLowerLeg",
+        "UpperTorso",
+        "LeftUpperLeg",
+        "RightLowerLeg",
+        "RightFoot",
+        "LowerTorso",
+        "RightUpperLeg"
+    },
     Ignored = {
         Teams = {
             {
                 Team = LocalPlayer.Team,
-                TeamColor = LocalPlayer.TeamColor,
-            },
+                TeamColor = LocalPlayer.TeamColor
+            }
         },
         Players = {
             LocalPlayer,
@@ -268,7 +280,9 @@ end
 function Aiming.Raycast(Origin, Destination, UnitMultiplier)
     if (typeof(Origin) == "Vector3" and typeof(Destination) == "Vector3") then
         -- // Handling
-        if (not UnitMultiplier) then UnitMultiplier = 1 end
+        if (not UnitMultiplier) then
+            UnitMultiplier = 1
+        end
 
         -- // Vars
         local Direction = (Destination - Origin).Unit * UnitMultiplier
@@ -320,7 +334,7 @@ function Aiming.GetClosestTargetPartToCursor(Character)
     local ClosestPartPosition = nil
     local ClosestPartOnScreen = false
     local ClosestPartMagnitudeFromMouse = nil
-    local ShortestDistance = 1/0
+    local ShortestDistance = 1 / 0
 
     -- //
     local function CheckTargetPart(TargetPart)
@@ -357,7 +371,6 @@ function Aiming.GetClosestTargetPartToCursor(Character)
             for _, v in ipairs(Character:GetChildren()) do
                 -- // See if it a part
                 if not (v:IsA("BasePart")) then
-                    continue
                 end
 
                 -- // Check it
@@ -387,7 +400,7 @@ function Aiming.GetClosestPlayerToCursor()
     local TargetPart = nil
     local ClosestPlayer = nil
     local Chance = CalcChance(Aiming.HitChance)
-    local ShortestDistance = 1/0
+    local ShortestDistance = 1 / 0
 
     -- // Chance
     if (not Chance) then
@@ -412,7 +425,8 @@ function Aiming.GetClosestPlayerToCursor()
                 -- // Check if is in FOV
                 if (circle.Radius > Magnitude and Magnitude < ShortestDistance) then
                     -- // Check if Visible
-                    if (Aiming.VisibleCheck and not Aiming.IsPartVisible(TargetPartTemp, Character)) then continue end
+                    if (Aiming.VisibleCheck and not Aiming.IsPartVisible(TargetPartTemp, Character)) then
+                    end
 
                     -- // Set vars
                     ClosestPlayer = Player
@@ -429,10 +443,12 @@ function Aiming.GetClosestPlayerToCursor()
 end
 
 -- // Heartbeat Function
-Heartbeat:Connect(function()
-    Aiming.UpdateFOV()
-    Aiming.GetClosestPlayerToCursor()
-end)
+Heartbeat:Connect(
+    function()
+        Aiming.UpdateFOV()
+        Aiming.GetClosestPlayerToCursor()
+    end
+)
 
 -- //
 return Aiming
