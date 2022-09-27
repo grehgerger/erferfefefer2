@@ -50,7 +50,7 @@ local tableinsert = table.insert
 
 -- // Silent Aim Vars
 getgenv().Aiming = {
-    Enabled = false,
+    Enabled = true,
     ShowFOV = true,
     FOV = 12,
     FOVSides = 360,
